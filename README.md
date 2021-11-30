@@ -1,0 +1,1 @@
+# konecta-front-test-ai
