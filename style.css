@@ -12,21 +12,18 @@ p {
 
 .poke-grid {
     display: grid;
-    grid-template-columns: repeat(5, minmax(5rem, 10rem));
+    grid-template-columns: repeat(auto-fill, 8rem);
     gap: 1rem;
-    width: 90%;
+    width: 60%;
     margin: 2rem auto;
     justify-content: center;    
 }
 .poke-card {
     border: 1px solid #303030;
     border-radius: 7px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: flex-start;
     padding: 0.5rem;
     padding-top: 0;
+    text-align: center;
     cursor: pointer;
 }
 .poke-card:hover {
@@ -55,10 +52,4 @@ button {
     width: 5rem;
     margin-top: 1rem;
     padding: 0.5rem 1rem;
-}
-
-@media screen and (max-width: 720px){
-    .poke-grid {
-        grid-template-columns: repeat(3, minmax(5rem, 10rem));
-    }
 }

@@ -1,4 +1,5 @@
 const pokemonGrid = document.querySelector(".poke-grid");
+const infoGrid = document.querySelector(".poke-info");
 
 function listPokemon() {
     for (let i = 10; i < 60; i++) {
@@ -18,13 +19,14 @@ function getInput() {
 function getPokemon(id) {
     fetch(`https://pokeapi.co/api/v2/pokemon/${id}`)
         .then((res) => res.json())
-        .then((data) => { addPokemon(data) })
+        .then((data) => { createPokemon(data, id) })
         .catch((error) => { errorMessage() });
 }
 
-function addPokemon(pokemon) {
+function createPokemon(pokemon, id) {
     var card = document.createElement("div");
     card.classList.add("poke-card");
+    card.setAttribute("id", id)
 
     var pokeImg = document.createElement("img");
     pokeImg.src = pokemon.sprites.front_default;
@@ -35,6 +37,10 @@ function addPokemon(pokemon) {
     card.appendChild(pokeImg);
     card.appendChild(pokeName);
     pokemonGrid.appendChild(card);
+
+    if (id == 59) {
+        getListener();
+    }
 }
 
 function errorMessage() {
@@ -48,3 +54,18 @@ function errorMessage() {
 }
 
 listPokemon()
+
+function getListener() {
+    var allCards = document.querySelectorAll(".poke-card");
+    allCards.forEach((scard, index) => {
+        scard.addEventListener('click', e => {
+            scard.getAttribute("id");
+            pokemonInfo(scard);
+        })
+    })
+
+}
+
+function pokemonInfo(id) {
+
+}
