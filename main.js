@@ -14,26 +14,27 @@ function getInput() {
         pokemonGrid.removeChild(appended[i]);
     }
     var appendedInfo2 = infoGrid.querySelector(".poke-card");
-    if (appendedInfo2.childNodes.length>0) {
+    if (appendedInfo2.childNodes.length > 0) {
         var appendedImg = appendedInfo2.querySelector("img");
         appendedInfo2.removeChild(appendedImg);
         var appendedInfo3 = infoGrid.querySelector(".poke-content");
-        var childH =appendedInfo3.querySelector("h2")
-        var childUl =appendedInfo3.querySelector("ul")
-    
+        var childH = appendedInfo3.querySelector("h2")
+        var childUl = appendedInfo3.querySelector("ul")
+
         appendedInfo3.removeChild(childH);
         appendedInfo3.removeChild(childUl);
     }
 
-    (inputVal.value != "")? getPokemon(inputVal.value) : listPokemon();
+    (inputVal.value != "") ? getPokemon(inputVal.value, 1) : listPokemon();
     document.querySelector("section").classList.remove("translate")
 }
 
 function getPokemon(id, info) {
     fetch(`https://pokeapi.co/api/v2/pokemon/${id}`)
         .then((res) => res.json())
-        .then((data) => { 
-            (info==1)? pokemonInfo(data) : createPokemon(data, id) })
+        .then((data) => {
+            (info == 1) ? pokemonInfo(data) : createPokemon(data, id)
+        })
         .catch((error) => { errorMessage() });
 }
 
@@ -90,20 +91,25 @@ function pokemonInfo(pokemon) {
     var pokeImg = document.createElement("img");
     pokeImg.src = pokemon.sprites.front_default;
 
-     var content = document.querySelector(".poke-content")
-     var pokeName = document.createElement("h2");
-     pokeName.innerHTML = pokemon.name;
+    var content = document.querySelector(".poke-content")
+    var pokeName = document.createElement("h2");
+    pokeName.innerHTML = pokemon.name;
 
-     var list = document.createElement("ul");
-     var items = [`Weight : ${pokemon.weight}`, `Ability : ${pokemon.abilities[0].ability.name}`, `Move : ${pokemon.moves[0].move.name}`, `Type : ${pokemon.types[0].type.name}`]
+    var list = document.createElement("ul");
+    var items = [`Weight : ${pokemon.weight}`, `Ability : ${pokemon.abilities[0].ability.name}`, `Move : ${pokemon.moves[0].move.name}`, `Type : ${pokemon.types[0].type.name}`]
 
-     for(let i=0; i<items.length; i++){
-         var listItem = document.createElement("li");
-         listItem.innerText = items[i]
-         list.appendChild(listItem);
-     }
+    for (let i = 0; i < items.length; i++) {
+        var listItem = document.createElement("li");
+        listItem.innerText = items[i]
+        list.appendChild(listItem);
+    }
 
-     infoContainer.appendChild(pokeImg);
+    infoContainer.appendChild(pokeImg);
     content.appendChild(pokeName);
-    content.appendChild(list)
+    content.appendChild(list);
+
+    var inputVal = document.querySelector("#pokemon");
+    inputVal.value = "";
 }
+
+document.querySelector(".back").addEventListener('click', event => { getInput() });
